@@ -74,7 +74,7 @@ const Checkout = () => {
 
   const handlePaymentComplete = () => {
     setIsDrawerOpen(false);
-    navigate("/success");
+    navigate(`/success?amount=${totalAmount.toFixed(2)}`);
   };
 
   const handleCloseDrawer = () => {

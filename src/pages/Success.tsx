@@ -1,8 +1,32 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle, Heart, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+declare global {
+  interface Window {
+    fbq: (...args: unknown[]) => void;
+  }
+}
+
 const Success = () => {
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    // Track Facebook Pixel Purchase/Donation conversion
+    if (typeof window.fbq === "function") {
+      const amount = searchParams.get("amount");
+      const value = amount ? parseFloat(amount) : 0;
+      
+      window.fbq("track", "Purchase", {
+        value: value,
+        currency: "USD",
+        content_name: "Donation",
+        content_category: "Charity",
+      });
+    }
+  }, [searchParams]);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
