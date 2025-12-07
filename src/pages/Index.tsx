@@ -10,6 +10,12 @@ import HeroProgress from "@/components/campaign/HeroProgress";
 import StickyProgressBar from "@/components/campaign/StickyProgressBar";
 import campaignImage from "@/assets/sophia-hero.webp";
 
+declare global {
+  interface Window {
+    fbq: (...args: unknown[]) => void;
+  }
+}
+
 const donations = [
   { name: "Maria S.", amount: 100, comment: "Força para a Sophia! Que Deus abençoe essa guerreira. 🙏", timeAgo: "2 min", likes: 5 },
   { name: "João P.", amount: 50, comment: "Meu coração está com vocês. Deus abençoe a família!", timeAgo: "15 min", likes: 3 },
@@ -118,7 +124,15 @@ const Index = () => {
                 variant="donate"
                 size="xl"
                 className="w-full"
-                onClick={() => navigate("/checkout")}
+                onClick={() => {
+                  if (typeof window.fbq === "function") {
+                    window.fbq("track", "InitiateCheckout", {
+                      content_name: "Help little Sophia fight Leukemia",
+                      content_category: "Charity",
+                    });
+                  }
+                  navigate("/checkout");
+                }}
               >
                 Donate now
               </Button>
@@ -187,7 +201,15 @@ const Index = () => {
                     variant="donate"
                     size="xl"
                     className="w-full"
-                    onClick={() => navigate("/checkout")}
+                    onClick={() => {
+                      if (typeof window.fbq === "function") {
+                        window.fbq("track", "InitiateCheckout", {
+                          content_name: "Help little Sophia fight Leukemia",
+                          content_category: "Charity",
+                        });
+                      }
+                      navigate("/checkout");
+                    }}
                   >
                     Donate now
                   </Button>
