@@ -17,10 +17,6 @@
       fbq('init', '1477666410196740');
       fbq('track', 'PageView');
     </script>
-    <noscript>
-      <img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=1477666410196740&ev=PageView&noscript=1"/>
-    </noscript>
     <!-- End Facebook Pixel Code -->
     <title>Help little Emily fight Epidermolysis Bullosa | GoFundMe</title>
     <meta name="description" content="Help Emily, a brave 5-year-old butterfly child fighting Epidermolysis Bullosa. Every donation helps cover medical supplies and treatments." />
@@ -39,6 +35,11 @@
   </head>
 
   <body>
+    <!-- Facebook Pixel noscript fallback -->
+    <noscript>
+      <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1477666410196740&ev=PageView&noscript=1"/>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
