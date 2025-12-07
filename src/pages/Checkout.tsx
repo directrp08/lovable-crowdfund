@@ -9,6 +9,12 @@ import PaymentDrawer from "@/components/checkout/PaymentDrawer";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
+declare global {
+  interface Window {
+    fbq: (...args: unknown[]) => void;
+  }
+}
+
 const Checkout = () => {
   const navigate = useNavigate();
   const [donationType, setDonationType] = useState<"once" | "monthly">("once");
@@ -47,6 +53,16 @@ const Checkout = () => {
   
   const handleContinue = async () => {
     if (effectiveAmount <= 0) return;
+    
+    // Track Facebook Pixel AddPaymentInfo event
+    if (typeof window.fbq === "function") {
+      window.fbq("track", "AddPaymentInfo", {
+        value: totalAmount,
+        currency: "USD",
+        content_name: "Donation",
+        content_category: "Charity",
+      });
+    }
     
     setIsLoading(true);
     try {
