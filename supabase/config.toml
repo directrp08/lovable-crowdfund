@@ -1,0 +1,7 @@
+project_id = "cwkwjvmhfqtjqzzbvroh"
+
+[functions.create-donation-checkout]
+verify_jwt = false
+
+[functions.create-payment-intent]
+verify_jwt = false
